@@ -1,0 +1,51 @@
+README
+
+-------------------------------------------------------------------------------------------------------------
+This project is about implementing a remote procedure call using java tcp sockets.
+
+-------------------------------------------------------------------------------------------------------------
+There is a generator file named xGen.java
+When executed, it creates Stub.java and Skeleton.java
+
+-------------------------------------------------------------------------------------------------------------
+The sequence of steps (follow strictly) to get all of this up and running is given below:
+
+$ javac xGen.java
+$ javac interfaceFile.java //or whichever file is an interface file should be compiled
+$ java xGen <interface class Name>	// xGen takes one argument at command line and that is the name of
+				        // the interface class
+$ javac Stub.java
+$ javac Skeleton.java
+$ javac functionCall.java
+$ javac remoteFunction.java
+
+Now in one terminal window do the following:
+
+$ java Skeleton
+
+Open another terminal window and do the following:
+
+$ java functionCall
+
+Value will be returned and printed in this window
+
+-------------------------------------------------------------------------------------------------------------
+THE PROCEDURE:
+
+The functionCall.java invokes a function call which calls a function in Stub.java which then
+sends out the method name, type and parameters in the following format to the server Skeleton.java
+	return_type # function_name # no_of_arguments # type_arg1 # value_arg1 # type_arg2 # value_arg2 # ....
+
+Once the Server.java receives the above string using sockets, it validates the types and no. of
+arguments send with the help of the method signature in the interfaceFile.java
+
+After the validation is done, it executes the function defined in functionCall.java and returns the
+result to the Stub using the socket.
+
+-------------------------------------------------------------------------------------------------------------
+The function that is to be called can be defined in the functionCall.java file
+
+CAUTION: Make sure to insert the signature of function to be called in interfaceFile.java and then the 
+	 definition of that function in remoteFunction.java and change the invocation accordingly in
+	 functionCall.java
+	 
